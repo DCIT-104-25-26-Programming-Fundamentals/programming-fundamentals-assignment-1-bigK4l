@@ -65,6 +65,110 @@
 
 #
 # =============================================================================
-# YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
+def add(a, b):
+    """Returns the sum of two numbers."""
+    return a + b
+
+
+def subtract(a, b):
+    """Returns the difference of two numbers."""
+    return a - b
+
+
+def multiply(a, b):
+    """Returns the product of two numbers."""
+    return a * b
+
+
+def divide(a, b):
+    """Returns the quotient of two numbers or an error if dividing by zero."""
+    if b == 0:
+        return "Error: Cannot divide by zero."
+    return round(a / b, 2)
+
+
+def modulus(a, b):
+    """Returns the remainder of division or an error if modulus by zero."""
+    if b == 0:
+        return "Error: Cannot divide by zero."
+    return a % b
+
+
+def power(a, b):
+    """Returns the result of raising base a to exponent b."""
+    return a**b
+
+
+def show_menu():
+    """Displays the main menu options."""
+    print("============================")
+    print("     SIMPLE CALCULATOR")
+    print("============================")
+    print("1. Addition")
+    print("2. Subtraction")
+    print("3. Multiplication")
+    print("4. Division")
+    print("5. Modulus")
+    print("6. Exponentiation")
+    print("7. Quit")
+
+
+def get_number(prompt):
+    """Helper function to prompt and validate numeric input."""
+    while True:
+        try:
+            val = input(prompt).strip()
+            if "." in val:
+                return float(val)
+            return int(val)
+        except ValueError:
+            print("Error: Invalid input. Please enter a valid number.")
+
+
+def main():
+    """Main program loop."""
+    while True:
+        show_menu()
+        choice = input("Select an operation (1-7): ").strip()
+
+        if choice == "7":
+            print("Goodbye!")
+            break
+
+        if choice not in ["1", "2", "3", "4", "5", "6"]:
+            print("Error: Invalid choice. Please select a number between 1 and 7.\n")
+            continue
+
+        num1 = get_number("Enter first number : ")
+        num2 = get_number("Enter second number: ")
+
+        if choice == "1":
+            res = add(num1, num2)
+            print(f"Result: {num1} + {num2} = {res}\n")
+        elif choice == "2":
+            res = subtract(num1, num2)
+            print(f"Result: {num1} - {num2} = {res}\n")
+        elif choice == "3":
+            res = multiply(num1, num2)
+            print(f"Result: {num1} * {num2} = {res}\n")
+        elif choice == "4":
+            res = divide(num1, num2)
+            if isinstance(res, str):
+                print(f"{res}\n")
+            else:
+                print(f"Result: {num1} / {num2} = {res:.2f}\n")
+        elif choice == "5":
+            res = modulus(num1, num2)
+            if isinstance(res, str):
+                print(f"{res}\n")
+            else:
+                print(f"Result: {num1} % {num2} = {res}\n")
+        elif choice == "6":
+            res = power(num1, num2)
+            print(f"Result: {num1} ^ {num2} = {res}\n")
+
+
+if __name__ == "__main__":
+    main()
 # =============================================================================
 
