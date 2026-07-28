@@ -87,6 +87,106 @@
 #
 
 # =============================================================================
-# YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
+def show_menu():
+    """Displays the main menu options."""
+    print("============================")
+    print("   STUDENT RECORD SYSTEM")
+    print("============================")
+    print("1. Add student record")
+    print("2. Display all records")
+    print("3. Calculate average score")
+    print("4. Quit")
+
+
+def add_student(students):
+    """Prompts for student details and adds a new record dictionary to the list."""
+    name = input("Student name: ").strip()
+    student_id = input("Student ID: ").strip()
+
+    scores_count_input = input("How many scores? ").strip()
+    if not scores_count_input.isdigit() or int(scores_count_input) <= 0:
+        print("Error: Invalid number of scores.\n")
+        return
+
+    scores_count = int(scores_count_input)
+    scores = []
+
+    for i in range(1, scores_count + 1):
+        score_input = input(f"Enter score {i}: ").strip()
+        try:
+            score = float(score_input)
+            scores.append(score)
+        except ValueError:
+            print(f"Error: Invalid score '{score_input}'. Record creation canceled.\n")
+            return
+
+    student = {
+        "name": name,
+        "id": student_id,
+        "scores": scores
+    }
+    students.append(student)
+    print(f'Student "{name}" added successfully.\n')
+
+
+def display_records(students):
+    """Displays all student records formatted in a neat table."""
+    if not students:
+        print("No student records available.\n")
+        return
+
+    print("-" * 50)
+    print(f"{'Name':<15}{'ID':<12}{'Scores':<15}{'Average':<8}")
+    print("-" * 50)
+
+    for student in students:
+        scores_str = ", ".join(
+            str(int(s)) if s.is_integer() else f"{s:.2f}" for s in student["scores"]
+        )
+        avg = sum(student["scores"]) / len(student["scores"]) if student["scores"] else 0
+        print(f"{student['name']:<15}{str(student['id']):<12}{scores_str:<15}{avg:.2f}")
+
+    print("-" * 50 + "\n")
+
+
+def calculate_average(students):
+    """Finds a student by ID and prints their average score."""
+    student_id = input("Enter student ID: ").strip()
+
+    for student in students:
+        if str(student["id"]) == student_id:
+            if student["scores"]:
+                avg = sum(student["scores"]) / len(student["scores"])
+                print(f"{student['name']}'s average score: {avg:.2f}\n")
+            else:
+                print(f"{student['name']} has no scores recorded.\n")
+            return
+
+    print(f"Error: Student with ID {student_id} not found.\n")
+
+
+def main():
+    """Main program loop."""
+    students = []
+
+    while True:
+        show_menu()
+        choice = input("Enter your choice (1-4): ").strip()
+
+        if choice == "1":
+            add_student(students)
+        elif choice == "2":
+            display_records(students)
+        elif choice == "3":
+            calculate_average(students)
+        elif choice == "4":
+            print("Goodbye!")
+            break
+        else:
+            print("Error: Invalid choice. Please enter a number between 1 and 4.\n")
+
+
+if __name__ == "__main__":
+    main()
 # =============================================================================
 
